@@ -30,9 +30,6 @@ const DepartmentListScreen = () => {
     const [updateDepartment, { isLoading: isUpdating }] =
         useUpdateDepartmentMutation();
 
-    if (isDepartmentsLoading) return <>Loading...</>;
-    if (error) return <>Error {error}</>;
-
     const handleAddDepartment = async () => {
         if (newDepartmentName.trim() === '') return;
 
@@ -78,6 +75,17 @@ const DepartmentListScreen = () => {
 
     const isFormValid = newDepartmentName.trim() !== '';
 
+    if (isDepartmentsLoading) return <>Loading...</>;
+    if (error) {
+        return (
+            <div>
+                <h1>Error</h1>
+                <p>Status: {error.status}</p>
+                <p>Message: {error.error?.data?.message || error.error || 'Something went wrong'}</p>
+            </div>
+        );
+    }
+
     return (
         <div>
             <div className={showAddModal || showEditModal ? 'blur-sm' : ''}>
@@ -103,7 +111,7 @@ const DepartmentListScreen = () => {
 
                 {/* Department Cards */}
                 <div>
-                    {departments.map((department) => (
+                    {departments && departments.map((department) => (
                         <div
                             key={department._id}
                             className='flex justify-between items-center bg-white shadow p-3 border border-gray-200'

@@ -73,7 +73,15 @@ const EmployeeScreen = () => {
     };
 
     if (isLoading) return <ClipLoader size={50} />;
-    if (error) return <div>Error: {error.message}</div>;
+    if (error) {
+        return (
+            <div>
+                <h1>Error</h1>
+                <p>Status: {error.status}</p>
+                <p>Message: {error.error?.data?.message || error.error || 'Something went wrong'}</p>
+            </div>
+        );
+    }
 
     return (
         <div className='p-4'>

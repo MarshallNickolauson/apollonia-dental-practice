@@ -72,7 +72,16 @@ const EmployeeListScreen = () => {
     };
 
     if (isEmployeesLoading) return <>Loading...</>;
-    if (error) return <>Error {error}</>;
+    
+    if (error) {
+        return (
+            <div>
+                <h1>Error</h1>
+                <p>Status: {error.status}</p>
+                <p>Message: {error.error?.data?.message || error.error || 'Something went wrong'}</p>
+            </div>
+        );
+    }
 
     return (
         <div>
@@ -104,7 +113,7 @@ const EmployeeListScreen = () => {
 
                 {/* Employee Cards */}
                 <div>
-                    {employees.map((employee) => (
+                    {employees && employees.map((employee) => (
                         <div
                             key={employee._id}
                             className='flex justify-between items-center bg-white shadow p-3 border border-gray-200'
