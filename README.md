@@ -1,4 +1,4 @@
-1. Install Docker
+1. Install Docker Desktop from ```https://www.docker.com/products/docker-desktop/```
 
 2. Run ```docker-compose up --build```
 
